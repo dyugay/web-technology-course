@@ -5,9 +5,7 @@ def app (environ, start_response):
   resp = environ['QUERY_STRING'].split("&")
   resp = [item+"\r\n" for item in resp]
  
-  if not resp:
-   resp = 'hello, Denis' 
-    
+
   
   return resp
 

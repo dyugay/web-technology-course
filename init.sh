@@ -1,4 +1,3 @@
-git clone https://github.com/dyugay/web-technology-course.git /home/box/web
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test
 sudo /etc/init.d/nginx restart

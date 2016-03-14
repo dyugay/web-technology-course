@@ -1,0 +1,21 @@
+
+#вход в mysql под рутом
+$ mysql -uroot -pgfhjkzytn -hlocalhost
+
+
+
+#создание базы
+create database db_ask_project;
+
+
+mysql> select user();
++-----------------+
+| user()          |
++-----------------+
+| denis@localhost |
++-----------------+
+1 row in set (0.00 sec)
+
+
+
+

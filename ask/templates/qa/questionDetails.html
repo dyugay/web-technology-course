@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+ <p>Hi, this is the question details.</p> 
+ <p>Question id: {{question.id}};</p>
+ <p>Question title: {{question.title}};</p>
+</head>
+ 
+<body>
+ <h2>Question text</h2>
+ <p>{{question.text}}</p>
+
+ <h2>Answers</h2> 
+ {% for answer in answers %}  
+  
+  <p> "{{answer.text}} </p>
+ {% endfor %}
+
+</body>
+
+</html>

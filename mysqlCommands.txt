@@ -17,5 +17,33 @@ mysql> select user();
 1 row in set (0.00 sec)
 
 
+#показать базы данных
+mysql>show databases;
+
+sudo service mysql start
+
+mysql -uroot -pgfhjkzytn
+
+create database db_ask_project;
+
+create user 'den@localhost' identified by 'pass';
+
+grant all on db_ask_project.* to 'den@localhost';
+
+grant all privileges on *.* to den@localhost identified by 'pass' with grant option;
+flush privileges;
+
+show tables from db_ask_project;
+
+ 
+show columns from qa_answer in db_ask_project;
+
+
+#показать из таблицы строки ограниченные количеством строк:
+select * from qa_question limit  5;
+
+#использовать база db_ask_project
+use db_ask_project;
+
 
 

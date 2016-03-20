@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+ <body>
+  <p>Текущий номер страницы: {{page.number}}</p>
+  <ul>
+
+  {% for question in page.object_list %}
+   <li>
+   <a href="{{question.get_url}}"> {{question.title}} </a>, rating: {{question.rating}}
+   </li>
+  {% endfor %}
+  </ul> 
+ 
+  <nav>
+   {% for pg in paginator.page_range %}
+     {% if pg == page.number %}
+      <pagenum style="font-size:200%">     
+     {% else %}   
+
+      <pagenum> 
+     {% endif %}
+       <a href="{{url}}{{pg}}">{{pg}}</a>
+      </pagenum>  
+   {% endfor %}  
+  </nav> 
+
+ </body> 
+</html>

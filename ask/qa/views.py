@@ -33,7 +33,7 @@ def getNewQuestionsList(request, *args, **kwargs):
 
 def getPopularQuestions(request, *args, **kwargs):
     questionsList = Question.objects.all()
-    questionsList = questionsList.order_by('rating')
+    questionsList = questionsList.order_by('-rating')
     paginatorAttr = paginate(request, questionsList)
     url = '/popular/?page='
     return render(request, 'qa/questionsList.html', {

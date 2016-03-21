@@ -12,7 +12,7 @@ def test(request, *args, **kwargs):
 #get questions list at home page
 def getNewQuestionsList(request, *args, **kwargs):
     questionsList = Question.objects.all()
-    questionsList = questionsList.order_by('-id')
+    questionsList = questionsList.order_by('-added_at')
     paginatorAttr = paginate(request, questionsList) 
    # shortcut = qaShortcuts()
    # page = paginate(request, questionsList)['page']

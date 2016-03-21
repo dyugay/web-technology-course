@@ -8,9 +8,9 @@ from django.core.urlresolvers import reverse
 
 class Question(models.Model):
   title = models.CharField(max_length=255)
-  text = models.TextField()
+  text = models.TextField(null=True)
   added_at = models.DateTimeField(auto_now_add=True)
-  rating = models.IntegerField() 
+  rating = models.IntegerField(null=True) 
   author = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
   likes = models.ManyToManyField(User, related_name = 'likes_set')
   

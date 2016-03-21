@@ -11,7 +11,7 @@ class Question(models.Model):
   text = models.TextField(null=True)
   added_at = models.DateTimeField(auto_now_add=True)
   rating = models.IntegerField(null=True) 
-  author = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
+  author = models.ForeignKey(User, null=True)
   likes = models.ManyToManyField(User, related_name = 'likes_set')
   
   def get_url(self):
@@ -22,7 +22,7 @@ class Answer(models.Model):
   text = models.TextField()
   added_at = models.DateTimeField(auto_now_add=True)
   question = models.ForeignKey(Question)
-  author = models.ManyToManyField(User)
+  author = models.ForeignKey(User, null=True)
 
 
 

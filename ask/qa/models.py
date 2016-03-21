@@ -25,11 +25,9 @@ class Answer(models.Model):
   author = models.ManyToManyField(User)
 
 
-#class qaShortcuts(object):   
-    
- #    def __init__(self):
-  #           pass
-   
+
+
+  
 def paginate(request, querySet):
 #shortcuts for pagination
 
@@ -64,7 +62,91 @@ def paginate(request, querySet):
            
             
 
+def dbQuestionInit():
+    for id in range(1,25):
+     author = User(username = 'NewUserAgain'+ str(id))
+     author.save()
+     print author.username     
+    
+     question = Question(title = 'title' + str(id), 
+                         text = 'text' + str(id),
+                         rating = id,
+                         author = author,
+                         )
+     question.save()
+     print question.title
+
+def dbAnswerInit():
+    
+    for id in range(1, 25):
+      print id
+      author = User.objects.get(id = id)
+      print author.username    
+  
+      question = Question.objects.get(id = id)
+
+      answer = Answer(text = 'answer' + str(id),
+                      question = question,
+                      )
+      answer.save()                        
  
+      answer.author.add(author)
+      answer.save()  
+
+   
+ 
+    
+    author = User(username = 'Nikolas')
+    author.save()
+    question = Question.objects.get(id = 3)
+    answer = Answer(text = 'answer from Nikolas' + str(id),
+                    question = question,
+                     )
+    answer.save()
+
+    answer.author.add(author)
+    answer.save()
+ 
+    author = User(username = 'Jane')
+    author.save()
+    question = Question.objects.get(id = 3)
+    answer = Answer(text = 'answer from Jane' + str(id),
+                    question = question,
+                     )
+    answer.save()
+
+    answer.author.add(author)
+    answer.save()
+
+
+
+
+    author = User(username = 'Silivia')
+    author.save()
+    question = Question.objects.get(id = 4)
+    answer = Answer(text = 'answer from Silivia' + str(id),
+                    question = question,
+                     )
+    answer.save()
+
+    answer.author.add(author)
+    answer.save()
+
+    author = User(username = 'Frodo')
+    author.save()
+ 
+    answer = Answer(text = 'answer from Frodo' + str(id),
+                    question = question,
+                     )
+    answer.save()
+
+    answer.author.add(author)
+    answer.save()
+
+
+
+
+
 
 
 

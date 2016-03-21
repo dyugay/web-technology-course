@@ -87,11 +87,10 @@ def dbAnswerInit():
 
       answer = Answer(text = 'answer' + str(id),
                       question = question,
+                      author = author,
                       )
       answer.save()                        
  
-      answer.author.add(author)
-      answer.save()  
 
    
  

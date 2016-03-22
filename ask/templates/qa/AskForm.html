@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+ <h3>Hi everyone, this is the AskForm! Just ask the question!</h3>
+</head>
+
+
+<body>
+{% for e in form.non_field_errors %}
+<div class="alert alert-danger">  {{e}} </div>
+{% endfor %} 
+<form method="post" action="/ask/">
+ {% csrf_token %}
+ <fieldset>
+  {% for field in form %}
+  <div class="control-group
+    {% if field.errors %} has-error" {%endif%}>
+    <p> </p>  
+    <label class="control-label"> {{field.label}}</label>
+    <div class="controls">  {{field}} </div>
+    {% if field.errors %}
+      <p>{{field.errors}} </p>
+    {% endif %}
+  </div> 
+  {% endfor %}
+  
+
+ </fieldset>
+ 
+ <div class="form-actions">
+  <button type="submit" class="btn btn-primary">submit</button> 
+ </div>
+</form>
+
+</body>
+
+</html>

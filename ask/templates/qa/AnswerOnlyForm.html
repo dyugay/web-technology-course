@@ -1,0 +1,31 @@
+{% block answer %}
+<h3>Answer Form:</h3>
+
+
+ {% for e in form.non_field_errors%}
+    <div>{{e}}</div>
+ {% endfor %}
+
+ <form method= "post" action="/answer/">
+  <fieldset>
+   {% for field in form%}
+    
+     
+    <div>
+       {{field}}
+    </div>
+    {% if field.errors %}
+     <div> 
+      {{field.errors}}
+     </div>
+    {% endif %}
+   {% endfor %}
+  </fieldset>
+
+  <div>
+   <button type="submit">submit answer</button>
+  </div>
+  {% csrf_token %}
+ </form>
+
+{% endblock %}

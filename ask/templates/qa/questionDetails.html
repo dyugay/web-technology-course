@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 
 <html>
+{%block question%}
 <head>
- <p>Hi, this is the question details.</p> 
- <p>Question id: {{question.id}};</p>
- <p>Question title: {{question.title}};</p>
+ <h2>Question Details</h2> 
+ <p>Question id: {{question.id}}</p>
+ <h3>Question title: {{question.title}}</h3>
 </head>
  
 <body>
- <h2>Question text</h2>
+ <h3>Question text:</h3>
  <p>{{question.text}}</p>
 
- <h2>Answers</h2> 
+ <h3>Answers:</h3> 
  {% for answer in answers %}  
   
   <p> "{{answer.text}} </p>
  {% endfor %}
+{%endblock%}
+
+ {% block answer %} {%endblock%}
 
 </body>
 

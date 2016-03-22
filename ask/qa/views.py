@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from qa.models import Question, Answer, paginate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-
+from qa.forms import AskForm, AnswerForm
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
@@ -51,13 +51,62 @@ def questionDetails(request, *args, **kwargs):
     questionId = kwargs['questionId']
     question = get_object_or_404(Question, id = questionId)
     answers = Answer.objects.filter(question = question)
- 
-    # return HttpResponse(questionId)
-    return render(request, 'qa/questionDetails.html', {
-                      'question': question,                       
-                      'answers': answers, 
-                       })
+    
+    if request.method == 'POST':
+      form = AnswerForm(request.POST)
+      if form.is_valid():
+         form.save() 
+         url = question.get_url()
+         return HttpResponseRedirect(url)
+    else:   
+      form = AnswerForm(initial={'question':questionId}) 
+    return render(request, 'qa/AnswerForm.html', {
+                        'question': question,                       
+                        'answers': answers,
+                        'form': form, 
+                         })
 
 
  
+def askQuestion(request, *args, **kwargs):
+    if request.method == 'POST':
+      form = AskForm(request.POST)  
+      if form.is_valid():
+        question = form.save()
+        url = question.get_url()
+        return HttpResponseRedirect(url) 
+    else:
+      form = AskForm()
+ 
+    #return HttpResponse('question input form')
+    return render(request,
+                  'qa/AskForm.html',
+                   {
+                   'form': form,
+                    })
 
+
+
+def postAnswer(request, *args, **kwargs):
+    if request.method == 'POST':
+       form = AnswerForm(request.POST)
+       if form.is_valid():
+          answer = form.save()
+          question = Question.objects.get(id = form.cleaned_data['question'])
+          url = question.get_url()
+          return HttpResponseRedirect(url)
+    #   return HttpResponse('answer form post') 
+    else:
+       form = AnswerForm()
+    
+    return render( request,
+                   'qa/AnswerOnlyForm.html',
+                   {
+                     'form':form,
+                     })           
+
+ 
+
+
+
+    

@@ -1,0 +1,21 @@
+<p>Hi, just login!</p>
+
+{% for e in form.non_field_errors%}
+  <div>{{e}} </div>
+{% endfor %}
+<form method="post">
+ {% for field in form%} 
+  <div> {{field.label}} {{field}} </div>
+
+
+ {%if field.errors %}
+   {{field.errors}}
+ {%endif%}  
+ {% endfor %}
+ 
+ <div><button type="submit">Login</button></div>
+ {%csrf_token%}
+</form>
+
+
+

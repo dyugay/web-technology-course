@@ -3,7 +3,9 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from qa.views import test, getNewQuestionsList, questionDetails, getPopularQuestions, askQuestion, postAnswer
+from qa.views import test, getNewQuestionsList 
+from qa.views import questionDetails, getPopularQuestions, askQuestion 
+from qa.views import postAnswer, signup, loginAsk
 
 urlpatterns = patterns('',
     # Examples:
@@ -12,8 +14,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)), 
     url(r'^$', getNewQuestionsList, name = 'home'),
-    url(r'^login/.*$', 'qa.views.test'),
-    url(r'^signup/.*$', 'qa.views.test'),
+    url(r'^login/.*$', loginAsk, name='login'),
+    url(r'^signup/.*$', signup, name = 'signup'),
     url(r'^question/(?P<questionId>\d+)*/*$', questionDetails, name = 'question-details'),
     url(r'^ask/.*$', askQuestion, name='ask-question'),
     url(r'^popular/.*$', getPopularQuestions, name = 'popular-questions' ),

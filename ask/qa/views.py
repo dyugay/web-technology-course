@@ -4,10 +4,12 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from qa.forms import AskForm, AnswerForm
+from qa.forms import AskForm, AnswerForm, SignUpForm, LoginForm
+from django.contrib.auth import authenticate, login
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
+
 
 #get questions list at home page
 def getNewQuestionsList(request, *args, **kwargs):
@@ -70,7 +72,8 @@ def questionDetails(request, *args, **kwargs):
  
 def askQuestion(request, *args, **kwargs):
     if request.method == 'POST':
-      form = AskForm(request.POST)  
+      form = AskForm(request.POST)
+      form._user = request.user  
       if form.is_valid():
         question = form.save()
         url = question.get_url()
@@ -86,10 +89,50 @@ def askQuestion(request, *args, **kwargs):
                     })
 
 
+def signup(request, *args, **kwargs):
+    if request.method == 'POST':
+      form = SignUpForm(request.POST)
+      if form.is_valid():
+        user = form.save()
+        url = '/'
+        return HttpResponseRedirect(url)
+    else:
+       form = SignUpForm()
+    return render(request, 
+                  'qa/SignUpForm.html',
+                   {
+                    'form': form,   
+                   } )
+     #  return HttpResponse('signup')
+
+
+def loginAsk(request, *args, **kwargs):
+    if request.method == 'POST':
+       form = LoginForm(request.POST)
+       if form.is_valid():
+          cleaned_data = form.clean()
+          user = authenticate(username=cleaned_data['username'],\
+                              password = cleaned_data['password'])
+          login(request, user)
+         # user = form.logIn() 
+          url = '/'
+          return HttpResponseRedirect(url)
+    else:
+       form = LoginForm()
+
+    return render ( request,
+                    'qa/LoginForm.html',
+                    {   
+                    'form': form,
+                    })
+             
+
+     
 
 def postAnswer(request, *args, **kwargs):
     if request.method == 'POST':
        form = AnswerForm(request.POST)
+       form._user = request.user
        if form.is_valid():
           answer = form.save()
           question = Question.objects.get(id = form.cleaned_data['question'])

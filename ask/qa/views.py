@@ -94,6 +94,12 @@ def signup(request, *args, **kwargs):
       form = SignUpForm(request.POST)
       if form.is_valid():
         user = form.save()
+
+        cleaned_data = form.clean()
+        user = authenticate(username=cleaned_data['username'],\
+                              password = cleaned_data['password'])
+        login(request, user)
+
         url = '/'
         return HttpResponseRedirect(url)
     else:
